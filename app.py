@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+from sqlalchemy import inspect
 
 # Optional S3
 USE_S3 = bool(os.environ.get("S3_BUCKET"))
@@ -66,7 +67,10 @@ def allowed_file(filename):
 
 # Create DB tables once at startup (Flask 3.x compatible)
 with app.app_context():
-    db.create_all()
+    insp = inspect(db.engine)
+    # Only create if our tables are missing
+    if not insp.has_table("user") or not insp.has_table("file"):
+        db.create_all()
 
 @app.route("/")
 def index():
