@@ -6,17 +6,43 @@
   {% else %}
     <p class="card" style="margin-top:10px">Storage: <strong>Local disk</strong> (developer mode)</p>
   {% endif %}
-  <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" class="upload card">
-    <input type="file" name="file" required>
-    <button type="submit">Upload</button>
-  </form>
+  <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" class="upload-form">
+  <p class="upload-note">
+    📁 Supported files: <strong>pdf, png, jpg, jpeg, gif, txt, csv, zip, doc, docx, ppt, pptx, xls, xlsx, json, mp4, mp3</strong>  
+    <br>Maximum file size: <strong>25 MB</strong>
+  </p>
+  <div class="upload-controls">
+    <input type="file" name="file" class="file-input">
+    <button type="submit" class="btn">Upload</button>
+  </div>
+</form>
   {% if files %}
   <table class="card table">
     <thead><tr><th>File</th><th>Size</th><th>Uploaded</th><th>Actions</th><th>Share link</th></tr></thead>
     <tbody>
       {% for f in files %}
       <tr>
-        <td>{{ f.original_name }}</td>
+        <td>
+          {% set ext = f.original_name.split('.')[-1].lower() %}
+          {% if ext in ['pdf'] %}
+            <img src="{{ url_for('static', filename='icons/pdf.svg') }}" class="file-icon" alt="PDF">
+          {% elif ext in ['jpg','jpeg','png','gif'] %}
+            <img src="{{ url_for('static', filename='icons/image.svg') }}" class="file-icon" alt="Image">
+          {% elif ext in ['doc','docx'] %}
+            <img src="{{ url_for('static', filename='icons/word.svg') }}" class="file-icon" alt="Word">
+          {% elif ext in ['ppt','pptx'] %}
+            <img src="{{ url_for('static', filename='icons/ppt.svg') }}" class="file-icon" alt="PowerPoint">
+          {% elif ext in ['xls','xlsx','csv'] %}
+            <img src="{{ url_for('static', filename='icons/excel.svg') }}" class="file-icon" alt="Excel">
+          {% elif ext in ['zip','tar','gz'] %}
+            <img src="{{ url_for('static', filename='icons/zip.svg') }}" class="file-icon" alt="Archive">
+          {% elif ext in ['mp4','mp3'] %}
+            <img src="{{ url_for('static', filename='icons/media.svg') }}" class="file-icon" alt="Media">
+          {% else %}
+            <img src="{{ url_for('static', filename='icons/file.svg') }}" class="file-icon" alt="File">
+          {% endif %}
+          {{ f.original_name }}
+        </td>
         <td>{{ (f.size_bytes / 1024) | round(1) }} KB</td>
         <td>{{ f.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
         <td class="actions">
