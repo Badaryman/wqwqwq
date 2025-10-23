@@ -54,8 +54,25 @@ nav.nav{display:flex;justify-content:space-between;align-items:center;padding:12
 
 /* ===== Upload block ===== */
 .upload-card{display:flex;flex-direction:column;gap:10px;margin-top:12px;padding:14px}
-.upload-note-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;color:var(--muted);line-height:1.4}
+
+/* Upload note lines split across two rows */
+.upload-note-row{
+  display:flex;
+  flex-direction:column;   /* stack lines vertically */
+  gap:6px;
+  color:var(--muted);
+  line-height:1.4;
+}
+.note-line{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.note-emoji{font-size:16px}
+
+/* (kept for backward-compat if used elsewhere) */
 .folder-emoji{font-size:18px}
+
 .upload-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .upload-controls .btn{padding:10px 12px;border-radius:10px;border:none;background:#2563eb;color:#fff;cursor:pointer}
 
