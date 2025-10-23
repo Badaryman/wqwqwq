@@ -53,21 +53,21 @@
           <td class="file-cell">
             {% set ext = f.original_name.split('.')[-1].lower() %}
             {% if ext in ['pdf'] %}
-              <img src="{{ url_for('static', filename='icons/pdf.svg') }}" class="file-icon" alt="PDF">
+              <img src="{{ url_for('static', filename='pdf.svg') }}" class="file-icon" alt="PDF">
             {% elif ext in ['jpg','jpeg','png','gif'] %}
-              <img src="{{ url_for('static', filename='icons/image.svg') }}" class="file-icon" alt="Image">
+              <img src="{{ url_for('static', filename='image.svg') }}" class="file-icon" alt="Image">
             {% elif ext in ['doc','docx'] %}
-              <img src="{{ url_for('static', filename='icons/word.svg') }}" class="file-icon" alt="Word">
+              <img src="{{ url_for('static', filename='word.svg') }}" class="file-icon" alt="Word">
             {% elif ext in ['ppt','pptx'] %}
-              <img src="{{ url_for('static', filename='icons/ppt.svg') }}" class="file-icon" alt="PowerPoint">
+              <img src="{{ url_for('static', filename='ppt.svg') }}" class="file-icon" alt="PowerPoint">
             {% elif ext in ['xls','xlsx','csv'] %}
-              <img src="{{ url_for('static', filename='icons/excel.svg') }}" class="file-icon" alt="Excel">
+              <img src="{{ url_for('static', filename='excel.svg') }}" class="file-icon" alt="Excel">
             {% elif ext in ['zip','tar','gz'] %}
-              <img src="{{ url_for('static', filename='icons/zip.svg') }}" class="file-icon" alt="Archive">
+              <img src="{{ url_for('static', filename='zip.svg') }}" class="file-icon" alt="Archive">
             {% elif ext in ['mp4','mp3'] %}
-              <img src="{{ url_for('static', filename='icons/media.svg') }}" class="file-icon" alt="Media">
+              <img src="{{ url_for('static', filename='media.svg') }}" class="file-icon" alt="Media">
             {% else %}
-              <img src="{{ url_for('static', filename='icons/file.svg') }}" class="file-icon" alt="File">
+              <img src="{{ url_for('static', filename='file.svg') }}" class="file-icon" alt="File">
             {% endif %}
             <span class="file-name" title="{{ f.original_name }}">{{ f.original_name }}</span>
           </td>
