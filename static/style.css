@@ -54,6 +54,26 @@ nav.nav{display:flex;justify-content:space-between;align-items:center;padding:12
 .hello{margin-right:10px;color:var(--muted)}
 .upload{display:flex;gap:8px;align-items:center}
 
+.upload-note {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.file-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.upload-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 @media (max-width:640px){
   .hero h1{font-size:32px}
   .hero-cta{flex-direction:column}
