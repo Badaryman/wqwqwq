@@ -17,6 +17,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from sqlalchemy import inspect
 
+from flask import Response
+ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "").lower()
+
 # ---------------------------
 # Config & setup
 # ---------------------------
@@ -93,6 +96,15 @@ def load_user(user_id):
 # ---------------------------
 def allowed_file(filename: str) -> bool:
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def admin_required(func):
+    from functools import wraps
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if not current_user.is_authenticated or (current_user.email.lower() != ADMIN_EMAIL):
+            abort(403)
+        return func(*args, **kwargs)
+    return wrapper
 
 
 def ensure_db():
@@ -320,6 +332,34 @@ def public_download(token):
         abort(404)
     url = _generate_presigned_download(rec.stored_name, rec.original_name, minutes=15)
     return redirect(url)
+
+@app.route("/admin/users")
+@login_required
+@admin_required
+def admin_users():
+    users = User.query.order_by(User.created_at.desc()).all()
+    # simple HTML table
+    rows = [
+        "<tr><th>ID</th><th>Email</th><th>Created</th></tr>"
+    ] + [
+        f"<tr><td>{u.id}</td><td>{u.email}</td><td>{u.created_at:%Y-%m-%d %H:%M}</td></tr>"
+        for u in users
+    ]
+    html = "<table class='table pretty card'>" + "".join(rows) + "</table>"
+    return html
+
+@app.route("/admin/users.csv")
+@login_required
+@admin_required
+def admin_users_csv():
+    users = User.query.order_by(User.created_at.desc()).all()
+    lines = ["id,email,created_at"]
+    for u in users:
+        lines.append(f'{u.id},"{u.email}",{u.created_at.isoformat()}')
+    csv_data = "\n".join(lines)
+    return Response(csv_data, mimetype="text/csv",
+                    headers={"Content-Disposition": "attachment; filename=users.csv"})
+
 
 
 if __name__ == "__main__":
