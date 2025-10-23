@@ -54,20 +54,28 @@
             {% set ext = f.original_name.split('.')[-1].lower() %}
             {% if ext in ['pdf'] %}
               <img src="{{ url_for('static', filename='pdf.svg') }}" class="file-icon" alt="PDF">
+                class="file-icon" alt="PDF" width="22" height="22">
             {% elif ext in ['jpg','jpeg','png','gif'] %}
               <img src="{{ url_for('static', filename='image.svg') }}" class="file-icon" alt="Image">
+                class="file-icon" alt="Image" width="22" height="22">
             {% elif ext in ['doc','docx'] %}
               <img src="{{ url_for('static', filename='word.svg') }}" class="file-icon" alt="Word">
+                class="file-icon" alt="Word" width="22" height="22">
             {% elif ext in ['ppt','pptx'] %}
               <img src="{{ url_for('static', filename='ppt.svg') }}" class="file-icon" alt="PowerPoint">
+                class="file-icon" alt="PowerPoint" width="22" height="22">
             {% elif ext in ['xls','xlsx','csv'] %}
               <img src="{{ url_for('static', filename='excel.svg') }}" class="file-icon" alt="Excel">
+                class="file-icon" alt="Excel" width="22" height="22">
             {% elif ext in ['zip','tar','gz'] %}
               <img src="{{ url_for('static', filename='zip.svg') }}" class="file-icon" alt="Archive">
+                class="file-icon" alt="Archive" width="22" height="22">
             {% elif ext in ['mp4','mp3'] %}
               <img src="{{ url_for('static', filename='media.svg') }}" class="file-icon" alt="Media">
+                class="file-icon" alt="Media" width="22" height="22">
             {% else %}
               <img src="{{ url_for('static', filename='file.svg') }}" class="file-icon" alt="File">
+                class="file-icon" alt="File" width="22" height="22">
             {% endif %}
             <span class="file-name" title="{{ f.original_name }}">{{ f.original_name }}</span>
           </td>
