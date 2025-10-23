@@ -1,0 +1,24 @@
+:root { --bg:#0f172a; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --accent:#22c55e; --danger:#ef4444; }
+*{box-sizing:border-box;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto}
+body{margin:0;background:var(--bg);color:var(--text)}
+a{color:#93c5fd;text-decoration:none}
+nav.nav{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:#0b1220;border-bottom:1px solid #1f2937}
+.brand{font-weight:700}
+.container{max-width:980px;margin:24px auto;padding:0 16px}
+.flash-wrap{margin-bottom:12px}
+.flash{padding:10px 12px;border-radius:8px;margin:6px 0;background:#1f2937;border:1px solid #1f2937}
+.flash.success{border-color:#16a34a}
+.flash.error{border-color:var(--danger)}
+.hero{text-align:center;padding:60px 0}
+.cta{background:var(--accent);padding:10px 16px;border-radius:10px;color:#052e16;font-weight:700}
+.cta.big{font-size:18px;padding:14px 20px}
+.card{background:var(--card);padding:14px;border:1px solid #1f2937;border-radius:14px}
+.form label{display:block;margin:10px 0}
+.form input{width:100%;padding:10px;border-radius:8px;border:1px solid #334155;background:#0b1220;color:var(--text)}
+.form button, .upload button, .actions button{margin-top:8px;padding:10px 12px;border-radius:10px;border:none;background:#2563eb;color:white;cursor:pointer}
+.danger{background:var(--danger)}
+.table{width:100%;border-collapse:collapse;margin-top:16px}
+.table th,.table td{padding:10px;border-bottom:1px solid #1f2937}
+.footer{text-align:center;color:var(--muted);padding:24px 0;margin-top:40px}
+.hello{margin-right:10px;color:var(--muted)}
+.upload{display:flex;gap:8px;align-items:center}
