@@ -1,5 +1,5 @@
 /* SENTINEL Brand */
-:root {
+:root{
   --bg:#0A1128;          /* deep navy */
   --nav:#0b1220;
   --card:#0F172A;
@@ -12,55 +12,119 @@
   --border:#1F2937;
 }
 
-*{box-sizing:border-box;font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial}
+*{box-sizing:border-box;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial}
 body{margin:0;background:var(--bg);color:var(--text)}
 
 a{color:var(--link);text-decoration:none}
-a.ghost{border:1px solid var(--border); padding:10px 16px; border-radius:10px; color:var(--text)}
+a.ghost{border:1px solid var(--border);padding:10px 16px;border-radius:10px;color:var(--text)}
 a.ghost.big{font-size:18px;padding:14px 20px}
 
+/* Top nav */
 nav.nav{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:var(--nav);border-bottom:1px solid var(--border)}
 .brand{display:flex;align-items:center;gap:10px;color:var(--text);font-weight:700}
 .logo{width:28px;height:28px;border-radius:6px}
-.brand-text{letter-spacing:0.2px}
+.brand-text{letter-spacing:.2px}
 
+/* Layout & cards */
 .container{max-width:980px;margin:24px auto;padding:0 16px}
 .card{background:var(--card);padding:14px;border:1px solid var(--border);border-radius:14px}
 
+/* Flash messages */
 .flash-wrap{margin-bottom:12px}
 .flash{padding:10px 12px;border-radius:8px;margin:6px 0;background:#111827;border:1px solid var(--border)}
 .flash.success{border-color:#16a34a}
 .flash.error{border-color:var(--danger)}
 
+/* Hero (landing) */
 .hero{text-align:center;padding:64px 0}
-.hero h1{font-size:40px;margin:0 0 10px 0}
-.hero p{color:var(--muted);margin:0 0 18px 0}
+.hero h1{font-size:40px;margin:0 0 10px}
+.hero p{color:var(--muted);margin:0 0 18px}
 .hero-cta{display:flex;gap:12px;justify-content:center;margin-top:10px}
 .benefits{display:flex;gap:14px;justify-content:center;list-style:none;padding:0;margin-top:18px;color:var(--muted);flex-wrap:wrap}
 
+/* Buttons & CTAs */
 .cta{background:var(--accent);padding:10px 16px;border-radius:10px;color:var(--accent-ink);font-weight:700;border:1px solid #1a2e16}
 .cta.big{font-size:18px;padding:14px 20px}
 
+/* Generic form controls */
 .form label{display:block;margin:10px 0}
 .form input{width:100%;padding:10px;border-radius:8px;border:1px solid #334155;background:#0b1220;color:var(--text)}
-.form button, .upload button, .actions button{margin-top:8px;padding:10px 12px;border-radius:10px;border:none;background:#2563eb;color:white;cursor:pointer}
+.form button,.upload button,.actions button{margin-top:8px;padding:10px 12px;border-radius:10px;border:none;background:#2563eb;color:#fff;cursor:pointer}
 .danger{background:var(--danger)}
 
-.table{width:100%;border-collapse:collapse;margin-top:16px}
-.table th,.table td{padding:10px;border-bottom:1px solid var(--border)}
-.actions form{display:inline}
-
-.footer{text-align:center;color:var(--muted);padding:24px 0;margin-top:40px}
-.hello{margin-right:10px;color:var(--muted)}
-.upload{display:flex;gap:8px;align-items:center}
-
+/* ===== Upload block ===== */
 .upload-card{display:flex;flex-direction:column;gap:10px;margin-top:12px;padding:14px}
 .upload-note-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;color:var(--muted);line-height:1.4}
 .folder-emoji{font-size:18px}
 .upload-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .upload-controls .btn{padding:10px 12px;border-radius:10px;border:none;background:#2563eb;color:#fff;cursor:pointer}
+
+/* File icons */
 .file-icon{width:20px;height:20px;vertical-align:middle;margin-right:8px}
 
+/* ===== Pretty files table (row-cards) ===== */
+.table{width:100%;border-collapse:collapse;margin-top:16px}
+.table th,.table td{padding:10px;border-bottom:1px solid var(--border)}
+.actions form{display:inline}
+
+/* Enhanced “pretty” style */
+.table.pretty{width:100%;border-collapse:separate;border-spacing:0 10px;background:transparent}
+.table.pretty thead th{
+  color:#9fb3c8;font-weight:600;text-transform:uppercase;font-size:.75rem;letter-spacing:.04em;
+  padding:0 14px;
+}
+.table.pretty tbody tr{
+  background:#0f1a2b;
+  box-shadow:0 8px 20px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.02);
+  border-radius:14px;
+}
+.table.pretty tbody td{padding:16px 14px;vertical-align:middle;border-top:1px solid rgba(255,255,255,.04)}
+.table.pretty tbody tr td:first-child{border-top:none}
+
+/* File cell + name ellipsis */
+.file-cell{display:flex;align-items:center;gap:12px;min-width:240px}
+.file-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:480px}
+
+/* Badges & muted helpers */
+.badge{background:#12233a;color:#cfe3ff;border:1px solid rgba(255,255,255,.08);padding:4px 8px;border-radius:999px;font-size:.8rem}
+.muted{color:#9fb3c8}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+
+/* Action buttons */
+.actions{display:flex;gap:8px;align-items:center}
+.actions form{display:inline}
+.btn,.btn-ghost,.btn-danger,.btn-mini{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:8px 12px;border-radius:10px;border:none;cursor:pointer;
+  font-weight:600;text-decoration:none;
+}
+.btn{background:#2563eb;color:#fff}
+.btn:hover{filter:brightness(1.05)}
+.btn-ghost{background:transparent;color:#cfe3ff;border:1px solid rgba(207,227,255,.18)}
+.btn-ghost:hover{background:rgba(255,255,255,.06)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{filter:brightness(1.05)}
+.btn-mini{padding:6px 8px;font-size:.8rem;background:#1e293b;color:#cfe3ff;border:1px solid rgba(207,227,255,.15)}
+.btn-mini:hover{background:#243447}
+
+/* Share column */
+.share-cell{display:flex;gap:8px;align-items:center;max-width:420px}
+.share-code{
+  display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  padding:6px 8px;background:#0b1524;color:#bcd7ff;border:1px dashed rgba(188,215,255,.25);
+  border-radius:8px;max-width:340px;
+}
+
+/* Footer */
+.footer{text-align:center;color:var(--muted);padding:24px 0;margin-top:40px}
+.hello{margin-right:10px;color:var(--muted)}
+.upload{display:flex;gap:8px;align-items:center}
+
+/* Responsiveness */
+@media (max-width:880px){
+  .file-name{max-width:240px}
+  .share-cell{flex-direction:column;align-items:flex-start}
+}
 @media (max-width:640px){
   .hero h1{font-size:32px}
   .hero-cta{flex-direction:column}
