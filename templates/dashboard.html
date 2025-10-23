@@ -1,76 +1,98 @@
 {% extends 'base.html' %}
 {% block content %}
   <h2>Your Files</h2>
+
   {% if use_s3 %}
-    <p class="card" style="margin-top:10px">Storage: <strong>AWS S3</strong> via private objects + presigned links.</p>
+    <p class="card" style="margin-top:10px">
+      Storage: <strong>AWS S3</strong> via private objects + presigned links.
+    </p>
   {% else %}
-    <p class="card" style="margin-top:10px">Storage: <strong>Local disk</strong> (developer mode)</p>
+    <p class="card" style="margin-top:10px">
+      Storage: <strong>Local disk</strong> (developer mode)
+    </p>
   {% endif %}
-  <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" class="upload-form">
-  <p class="upload-note">
-    📁 Supported files: <strong>pdf, png, jpg, jpeg, gif, txt, csv, zip, doc, docx, ppt, pptx, xls, xlsx, json, mp4, mp3</strong>  
-    <br>Maximum file size: <strong>25 MB</strong>
-  </p>
-  <div class="upload-controls">
-    <input type="file" name="file" class="file-input">
-    <button type="submit" class="btn">Upload</button>
+
+  <!-- Upload card (matches top card style) -->
+  <div class="card upload-card">
+    <div class="upload-note-row">
+      <span class="folder-emoji">📁</span>
+      <span>
+        Supported files:
+        <strong>pdf, png, jpg, jpeg, gif, txt, csv, zip, doc, docx, ppt, pptx, xls, xlsx, json, mp4, mp3</strong>
+      </span>
+      <span class="limit">Maximum file size: <strong>25 MB</strong></span>
+    </div>
+
+    <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data"
+          class="upload-controls" autocomplete="off">
+      <input
+        type="file"
+        name="file"
+        class="file-input"
+        accept=".pdf,.png,.jpg,.jpeg,.gif,.txt,.csv,.zip,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.json,.mp4,.mp3"
+        required
+      >
+      <button type="submit" class="btn">Upload</button>
+    </form>
   </div>
-</form>
+
   {% if files %}
-  <table class="card table">
-    <thead><tr><th>File</th><th>Size</th><th>Uploaded</th><th>Actions</th><th>Share link</th></tr></thead>
-    <tbody>
-      {% for f in files %}
-      <tr>
-        <td>
-          {% set ext = f.original_name.split('.')[-1].lower() %}
-          {% if ext in ['pdf'] %}
-            <img src="{{ url_for('static', filename='pdf.svg') }}" class="file-icon" alt="PDF">
-          {% elif ext in ['jpg','jpeg','png','gif'] %}
-            <img src="{{ url_for('static', filename='image.svg') }}" class="file-icon" alt="Image">
-          {% elif ext in ['doc','docx'] %}
-            <img src="{{ url_for('static', filename='word.svg') }}" class="file-icon" alt="Word">
-          {% elif ext in ['ppt','pptx'] %}
-            <img src="{{ url_for('static', filename='ppt.svg') }}" class="file-icon" alt="PowerPoint">
-          {% elif ext in ['xls','xlsx','csv'] %}
-            <img src="{{ url_for('static', filename='excel.svg') }}" class="file-icon" alt="Excel">
-          {% elif ext in ['zip','tar','gz'] %}
-            <img src="{{ url_for('static', filename='zip.svg') }}" class="file-icon" alt="Archive">
-          {% elif ext in ['mp4','mp3'] %}
-            <img src="{{ url_for('static', filename='media.svg') }}" class="file-icon" alt="Media">
-          {% else %}
-            <img src="{{ url_for('static', filename='file.svg') }}" class="file-icon" alt="File">
-          {% endif %}
-          {{ f.original_name }}
-        </td>
-        <td>{{ (f.size_bytes / 1024) | round(1) }} KB</td>
-        <td>{{ f.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
-        <td class="actions">
-          <a href="{{ url_for('download', file_id=f.id) }}">Download</a>
-          <form action="{{ url_for('delete', file_id=f.id) }}" method="post" style="display:inline">
-            <button type="submit" class="danger">Delete</button>
-          </form>
-          {% if not f.share_token %}
-          <form action="{{ url_for('share', file_id=f.id) }}" method="post" style="display:inline">
-            <button type="submit">Create link</button>
-          </form>
-          {% else %}
-          <form action="{{ url_for('unshare', file_id=f.id) }}" method="post" style="display:inline">
-            <button type="submit">Disable link</button>
-          </form>
-          {% endif %}
-        </td>
-        <td>
-          {% if f.share_token %}
-            <code>{{ request.url_root.rstrip('/') + url_for('public_download', token=f.share_token) }}</code>
-          {% else %}
-            —
-          {% endif %}
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    <table class="card table">
+      <thead>
+        <tr><th>File</th><th>Size</th><th>Uploaded</th><th>Actions</th><th>Share link</th></tr>
+      </thead>
+      <tbody>
+        {% for f in files %}
+        <tr>
+          <td>
+            {% set ext = f.original_name.split('.')[-1].lower() %}
+            {% if ext in ['pdf'] %}
+              <img src="{{ url_for('static', filename='icons/pdf.svg') }}" class="file-icon" alt="PDF">
+            {% elif ext in ['jpg','jpeg','png','gif'] %}
+              <img src="{{ url_for('static', filename='icons/image.svg') }}" class="file-icon" alt="Image">
+            {% elif ext in ['doc','docx'] %}
+              <img src="{{ url_for('static', filename='icons/word.svg') }}" class="file-icon" alt="Word">
+            {% elif ext in ['ppt','pptx'] %}
+              <img src="{{ url_for('static', filename='icons/ppt.svg') }}" class="file-icon" alt="PowerPoint">
+            {% elif ext in ['xls','xlsx','csv'] %}
+              <img src="{{ url_for('static', filename='icons/excel.svg') }}" class="file-icon" alt="Excel">
+            {% elif ext in ['zip','tar','gz'] %}
+              <img src="{{ url_for('static', filename='icons/zip.svg') }}" class="file-icon" alt="Archive">
+            {% elif ext in ['mp4','mp3'] %}
+              <img src="{{ url_for('static', filename='icons/media.svg') }}" class="file-icon" alt="Media">
+            {% else %}
+              <img src="{{ url_for('static', filename='icons/file.svg') }}" class="file-icon" alt="File">
+            {% endif %}
+            {{ f.original_name }}
+          </td>
+          <td>{{ (f.size_bytes / 1024) | round(1) }} KB</td>
+          <td>{{ f.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+          <td class="actions">
+            <a href="{{ url_for('download', file_id=f.id) }}">Download</a>
+            <form action="{{ url_for('delete', file_id=f.id) }}" method="post" style="display:inline">
+              <button type="submit" class="danger">Delete</button>
+            </form>
+            {% if not f.share_token %}
+              <form action="{{ url_for('share', file_id=f.id) }}" method="post" style="display:inline">
+                <button type="submit">Create link</button>
+              </form>
+            {% else %}
+              <form action="{{ url_for('unshare', file_id=f.id) }}" method="post" style="display:inline">
+                <button type="submit">Disable link</button>
+              </form>
+            {% endif %}
+          </td>
+          <td>
+            {% if f.share_token %}
+              <code>{{ url_for('public_download', token=f.share_token, _external=True) }}</code>
+            {% else %}
+              —
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   {% else %}
     <p>No files yet. Upload your first file above.</p>
   {% endif %}
