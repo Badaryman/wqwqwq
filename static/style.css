@@ -1,24 +1,60 @@
-:root { --bg:#0f172a; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --accent:#22c55e; --danger:#ef4444; }
-*{box-sizing:border-box;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto}
+/* SENTINEL Brand */
+:root {
+  --bg:#0A1128;          /* deep navy */
+  --nav:#0b1220;
+  --card:#0F172A;
+  --muted:#94A3B8;
+  --text:#E5E7EB;
+  --accent:#39FF14;      /* neon green */
+  --accent-ink:#071b0a;
+  --link:#93C5FD;
+  --danger:#EF4444;
+  --border:#1F2937;
+}
+
+*{box-sizing:border-box;font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial}
 body{margin:0;background:var(--bg);color:var(--text)}
-a{color:#93c5fd;text-decoration:none}
-nav.nav{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:#0b1220;border-bottom:1px solid #1f2937}
-.brand{font-weight:700}
+
+a{color:var(--link);text-decoration:none}
+a.ghost{border:1px solid var(--border); padding:10px 16px; border-radius:10px; color:var(--text)}
+a.ghost.big{font-size:18px;padding:14px 20px}
+
+nav.nav{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:var(--nav);border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;gap:10px;color:var(--text);font-weight:700}
+.logo{width:28px;height:28px;border-radius:6px}
+.brand-text{letter-spacing:0.2px}
+
 .container{max-width:980px;margin:24px auto;padding:0 16px}
+.card{background:var(--card);padding:14px;border:1px solid var(--border);border-radius:14px}
+
 .flash-wrap{margin-bottom:12px}
-.flash{padding:10px 12px;border-radius:8px;margin:6px 0;background:#1f2937;border:1px solid #1f2937}
+.flash{padding:10px 12px;border-radius:8px;margin:6px 0;background:#111827;border:1px solid var(--border)}
 .flash.success{border-color:#16a34a}
 .flash.error{border-color:var(--danger)}
-.hero{text-align:center;padding:60px 0}
-.cta{background:var(--accent);padding:10px 16px;border-radius:10px;color:#052e16;font-weight:700}
+
+.hero{text-align:center;padding:64px 0}
+.hero h1{font-size:40px;margin:0 0 10px 0}
+.hero p{color:var(--muted);margin:0 0 18px 0}
+.hero-cta{display:flex;gap:12px;justify-content:center;margin-top:10px}
+.benefits{display:flex;gap:14px;justify-content:center;list-style:none;padding:0;margin-top:18px;color:var(--muted);flex-wrap:wrap}
+
+.cta{background:var(--accent);padding:10px 16px;border-radius:10px;color:var(--accent-ink);font-weight:700;border:1px solid #1a2e16}
 .cta.big{font-size:18px;padding:14px 20px}
-.card{background:var(--card);padding:14px;border:1px solid #1f2937;border-radius:14px}
+
 .form label{display:block;margin:10px 0}
 .form input{width:100%;padding:10px;border-radius:8px;border:1px solid #334155;background:#0b1220;color:var(--text)}
 .form button, .upload button, .actions button{margin-top:8px;padding:10px 12px;border-radius:10px;border:none;background:#2563eb;color:white;cursor:pointer}
 .danger{background:var(--danger)}
+
 .table{width:100%;border-collapse:collapse;margin-top:16px}
-.table th,.table td{padding:10px;border-bottom:1px solid #1f2937}
+.table th,.table td{padding:10px;border-bottom:1px solid var(--border)}
+.actions form{display:inline}
+
 .footer{text-align:center;color:var(--muted);padding:24px 0;margin-top:40px}
 .hello{margin-right:10px;color:var(--muted)}
 .upload{display:flex;gap:8px;align-items:center}
+
+@media (max-width:640px){
+  .hero h1{font-size:32px}
+  .hero-cta{flex-direction:column}
+}
