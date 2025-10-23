@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: campus-cloud
+    env: docker
+    plan: free
+    autoDeploy: true
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: S3_BUCKET
+        sync: false
+      - key: AWS_REGION
+        value: us-east-1
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: S3_PREFIX
+        value: uploads/
