@@ -12,7 +12,7 @@
     </p>
   {% endif %}
 
-  <!-- Upload card (matches top card style) -->
+  <!-- Upload card -->
   <div class="card upload-card">
     <div class="upload-note-row">
       <span class="folder-emoji">📁</span>
@@ -37,14 +37,20 @@
   </div>
 
   {% if files %}
-    <table class="card table">
+    <table class="table pretty">
       <thead>
-        <tr><th>File</th><th>Size</th><th>Uploaded</th><th>Actions</th><th>Share link</th></tr>
+        <tr>
+          <th>File</th>
+          <th>Size</th>
+          <th>Uploaded</th>
+          <th>Actions</th>
+          <th>Share link</th>
+        </tr>
       </thead>
       <tbody>
         {% for f in files %}
         <tr>
-          <td>
+          <td class="file-cell">
             {% set ext = f.original_name.split('.')[-1].lower() %}
             {% if ext in ['pdf'] %}
               <img src="{{ url_for('static', filename='icons/pdf.svg') }}" class="file-icon" alt="PDF">
@@ -63,28 +69,36 @@
             {% else %}
               <img src="{{ url_for('static', filename='icons/file.svg') }}" class="file-icon" alt="File">
             {% endif %}
-            {{ f.original_name }}
+            <span class="file-name" title="{{ f.original_name }}">{{ f.original_name }}</span>
           </td>
-          <td>{{ (f.size_bytes / 1024) | round(1) }} KB</td>
-          <td>{{ f.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+
+          <td><span class="badge">{{ (f.size_bytes / 1024) | round(1) }} KB</span></td>
+
+          <td><span class="muted mono">{{ f.created_at.strftime('%Y-%m-%d %H:%M') }}</span></td>
+
           <td class="actions">
-            <a href="{{ url_for('download', file_id=f.id) }}">Download</a>
-            <form action="{{ url_for('delete', file_id=f.id) }}" method="post" style="display:inline">
-              <button type="submit" class="danger">Delete</button>
+            <a href="{{ url_for('download', file_id=f.id) }}" class="btn-ghost">Download</a>
+
+            <form action="{{ url_for('delete', file_id=f.id) }}" method="post">
+              <button type="submit" class="btn-danger">Delete</button>
             </form>
+
             {% if not f.share_token %}
-              <form action="{{ url_for('share', file_id=f.id) }}" method="post" style="display:inline">
-                <button type="submit">Create link</button>
+              <form action="{{ url_for('share', file_id=f.id) }}" method="post">
+                <button type="submit" class="btn">Create link</button>
               </form>
             {% else %}
-              <form action="{{ url_for('unshare', file_id=f.id) }}" method="post" style="display:inline">
-                <button type="submit">Disable link</button>
+              <form action="{{ url_for('unshare', file_id=f.id) }}" method="post">
+                <button type="submit" class="btn-ghost">Disable link</button>
               </form>
             {% endif %}
           </td>
-          <td>
+
+          <td class="share-cell">
             {% if f.share_token %}
-              <code>{{ url_for('public_download', token=f.share_token, _external=True) }}</code>
+              {% set link = url_for('public_download', token=f.share_token, _external=True) %}
+              <code class="share-code" title="{{ link }}">{{ link }}</code>
+              <button class="btn-mini" onclick="copyShare(this)" data-link="{{ link }}">Copy</button>
             {% else %}
               —
             {% endif %}
@@ -96,4 +110,14 @@
   {% else %}
     <p>No files yet. Upload your first file above.</p>
   {% endif %}
+
+  <script>
+    function copyShare(el){
+      const link = el.dataset.link;
+      navigator.clipboard.writeText(link).then(()=>{
+        el.textContent='Copied!';
+        setTimeout(()=> el.textContent='Copy', 1200);
+      });
+    }
+  </script>
 {% endblock %}
