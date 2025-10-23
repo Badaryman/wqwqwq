@@ -1,14 +1,20 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Campus Cloud</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SENTINEL CloudDrive</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/sentinel-logo.png') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='1') }}" />
+    <meta name="theme-color" content="#0A1128" />
+    <meta name="description" content="SENTINEL CloudDrive — secure, scalable cloud storage and sharing by SENTINEL." />
   </head>
   <body>
     <nav class="nav">
-      <a href="{{ url_for('index') }}" class="brand">☁️ Campus Cloud</a>
+      <a href="{{ url_for('index') }}" class="brand">
+        <img class="logo" src="{{ url_for('static', filename='img/sentinel-logo.png') }}" alt="SENTINEL" />
+        <span class="brand-text">SENTINEL CloudDrive</span>
+      </a>
       <div class="right">
         {% if current_user.is_authenticated %}
           <span class="hello">Hi, {{ current_user.email }}</span>
@@ -16,10 +22,11 @@
           <a href="{{ url_for('logout') }}">Logout</a>
         {% else %}
           <a href="{{ url_for('login') }}">Login</a>
-          <a href="{{ url_for('register') }}" class="cta">Sign up</a>
+          <a href="{{ url_for('register') }}" class="cta">Get Started</a>
         {% endif %}
       </div>
     </nav>
+
     <main class="container">
       {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
@@ -32,6 +39,9 @@
       {% endwith %}
       {% block content %}{% endblock %}
     </main>
-    <footer class="footer">Built for college projects • Flask + SQLite</footer>
+
+    <footer class="footer">
+      © {{  (now() if false)  }} SENTINEL • Cloud Solutions • Built for reliability, scalability & security.
+    </footer>
   </body>
 </html>
