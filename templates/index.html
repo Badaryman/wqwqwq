@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
   <section class="hero">
-    <h1>Secure file storage for your campus projects</h1>
-    <p>Upload, organize, and share files with simple public links.</p>
-    <a class="cta big" href="{{ url_for('register') }}">Get Started</a>
+    <h1>SENTINEL CloudDrive</h1>
+    <p>Enterprise-grade, secure cloud storage and sharing—part of SENTINEL’s Cloud Solutions.</p>
+    <div class="hero-cta">
+      <a class="cta big" href="{{ url_for('register') }}">Create account</a>
+      <a class="ghost big" href="{{ url_for('login') }}">Sign in</a>
+    </div>
+    <ul class="benefits">
+      <li>🔐 Zero-public access S3 + presigned links</li>
+      <li>⚡ High-availability on SENTINEL’s network backbone</li>
+      <li>🧩 IoT-ready APIs for telemetry and logs</li>
+    </ul>
   </section>
 {% endblock %}
