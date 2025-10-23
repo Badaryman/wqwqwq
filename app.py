@@ -64,8 +64,8 @@ def load_user(user_id):
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.before_first_request
-def init_db():
+# Create DB tables once at startup (Flask 3.x compatible)
+with app.app_context():
     db.create_all()
 
 @app.route("/")
